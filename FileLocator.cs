@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Collections.Specialized;
-using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ProgressReport

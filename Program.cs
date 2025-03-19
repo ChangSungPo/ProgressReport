@@ -30,11 +30,12 @@ namespace ProgressReport
             {
                 var fileLocator = serviceProvider.GetService<FileLocator>();
                 var fileGrouper = serviceProvider.GetService<FileGrouper>();
+                var reportGenerator = serviceProvider.GetService<ReportGenerator>();
 
                 string[] excelFiles = fileLocator?.FindAllFile() ?? Array.Empty<string>();
                 var fileGroupByTeacherName = fileGrouper?.GroupFileByTeacherName(excelFiles);
 
-
+                reportGenerator?.GenerateReport(fileGroupByTeacherName);
                 Console.WriteLine("Press any key for continuing...");
                 Console.Read();
 
@@ -61,6 +62,7 @@ namespace ProgressReport
             });
             serviceCollection.AddTransient<FileLocator>();
             serviceCollection.AddTransient<FileGrouper>();
+            serviceCollection.AddTransient<ReportGenerator>();
 
             return serviceCollection.BuildServiceProvider();
         }
