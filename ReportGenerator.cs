@@ -21,7 +21,6 @@ namespace ProgressReport
         public void GenerateReport(Dictionary<string, List<string>>? fileGroupByTeacherName)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            string rootPath = ConfigurationManager.AppSettings.Get("rootPath");
 
             if (fileGroupByTeacherName == null || fileGroupByTeacherName.Count == 0)
             {
@@ -31,6 +30,7 @@ namespace ProgressReport
 
             foreach (var (teacherName, fileList) in fileGroupByTeacherName)
             {
+                _logger.LogInformation($"{teacherName} process start");
                 ProcessTeacherFiles(teacherName, fileList);
             }
         }
@@ -51,6 +51,7 @@ namespace ProgressReport
 
             foreach (var yearGroup in groupedFilesByYear)
             {
+                _logger.LogInformation($"{yearGroup.Key} process start");
                 ProcessYearGroup(teacherName, yearGroup.Key, yearGroup);
             }
         }
@@ -62,6 +63,7 @@ namespace ProgressReport
 
             foreach (var file in yearGroup)
             {
+                _logger.LogInformation($"{file} process start");
                 ProcessFile(file, yearList, patientsYearReport);
             }
 
